@@ -1,14 +1,121 @@
 <!DOCTYPE html>
 <html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=0, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1"
+    />
+    <title>Phaser Game</title>
+    <style>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="user-scalable=0, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, minimal-ui=1">
-  <title>Phaser Game</title>
-</head>
+      html {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      #info {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        top: 30px;
+        color: white;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+      }
 
-<body style="margin: 0; height: 100%; overflow: hidden">
-</body>
+      #gold {
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        color: rgb(219, 210, 39);
+      }
 
+      #shop {
+        background-image: url("/static/menu.png");
+        width: 624px;
+        height: 624px;
+        position: relative;
+      }
+
+      .grid {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+
+      .shop-item {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        border-top: 2px solid gray;
+        border-bottom: 2px solid gray;
+        cursor: pointer;
+      }
+
+      .shop-item:hover {
+        background-color: aquamarine;
+      }
+
+      .shop-item > div {
+        margin-right: 2em;
+        margin-left: auto;
+      }
+
+      .close {
+        position: absolute;
+        right: 17px;
+        top: 21px;
+        width: 32px;
+        height: 32px;
+        background-color: red;
+        border-radius: 50%;
+      }
+
+      .close:hover {
+        opacity: 1;
+      }
+      .close:before, .close:after {
+        position: absolute;
+        left: 15px;
+        content: ' ';
+        height: 33px;
+        width: 2px;
+        background-color: #333;
+      }
+      .close:before {
+        transform: rotate(45deg);
+      }
+      .close:after {
+        transform: rotate(-45deg);
+      }
+
+    </style>
+  </head>
+
+  <body style="margin: 0; height: 100%; overflow: hidden">
+    <h1 id="info">Place shop!</h1>
+    <h1 id="gold">Gold: </h1>
+    <div id="shop-container" class="grid" style="top: -120vh;">
+      <div id="shop">
+        <a href="#" id="shop-close" class="close"></a>
+        <div style="margin-top: 80px;""></div>
+        <div id="farm-bot" class="shop-item">
+          <img src="/static/robot-right.png" alt="Robot" width="64" height="64">
+          <h2>Farm Bot</h2>
+          <div style="display: flex; flex-direction: row; padding-top: 5px;">
+            <img src="/static/gold.png" width="32" height="32" style="padding-top: 12px;">
+            <h3>100g</h3>
+          </div>
+        </div>
+        <div id="bot-speed" class="shop-item">
+          <img src="/static/robot-right.png" alt="Robot" width="64" height="64">
+          <h2>Bot Speed</h2>
+          <div style="display: flex; flex-direction: row; padding-top: 5px;">
+            <img src="/static/gold.png" width="32" height="32" style="padding-top: 12px;">
+            <h3>1000g</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
