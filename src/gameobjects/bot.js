@@ -1,7 +1,8 @@
 export class Bot extends Phaser.GameObjects.Image {
     constructor(scene, x, y) {
+    console.log(scene);
       super(scene, x, y, "bot-right");
-      this.setDepth(1);
+      this.setDepth(2);
       this.targetX = 10000
       this.targetY = 10000
       this.busy = false;
