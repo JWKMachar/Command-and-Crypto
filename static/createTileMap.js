@@ -21,7 +21,7 @@ for (var y = 1; y < size - 1; y++) {
     data += getRandomElement();
     data += ",";
   }
-  data += "11";
+  data += "11"; 
   data += "\n";
 }
 
