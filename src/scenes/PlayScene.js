@@ -1,6 +1,7 @@
 import * as Phaser from "phaser";
 import { BitcoinMarket } from "../gameobjects/bitcoinMarket";
 import { Bot } from "../gameobjects/bot";
+import { Defender } from "../gameobjects/defender";
 import { Enemy } from "../gameobjects/enemy";
 import { Gold } from "../gameobjects/gold";
 import { Shop } from "../gameobjects/shop";
@@ -47,7 +48,10 @@ export default class PlayScene extends Phaser.Scene {
   buyDefender() {
     if(window.state.goldCollected >= 2500) {
       window.state.goldCollected -= 2500;
-      
+      const newBot = new Defender(window.scene, window.state.shop.x, window.state.shop.y);
+      window.state.bots.push(newBot);
+      window.scene.add.existing(newBot);
+      window.state.shopGUIOpen = false;
     }
   }
 
@@ -74,7 +78,7 @@ export default class PlayScene extends Phaser.Scene {
       gold: [],
       Enemy: [],
       shopGUIOpen: false,
-      goldCollected: 1002,
+      goldCollected: 20000,
       botSpeed: 1,
       lifeTimeGold: 100,
       marketGUIOpen: false,

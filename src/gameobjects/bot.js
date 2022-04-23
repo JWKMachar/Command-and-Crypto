@@ -7,6 +7,7 @@ export class Bot extends Phaser.GameObjects.Image {
       this.busy = false;
       this.speed = 1;
       this.workingOn = undefined;
+      this.isDefender = false;
     }
 
     update() {
