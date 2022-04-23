@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import PlayScene from './src/PlayScene';
+import PlayScene from './src/scenes/PlayScene';
 
 const config = {
   name: 'app',
