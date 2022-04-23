@@ -25,6 +25,7 @@ export default class PlayScene extends Phaser.Scene {
   preload() {
     this.load.image("map", "/static/sci-fi-tiles.png");
     this.load.image("bot-right", "/static/robot-right.png");
+    this.load.image("bot-evil", "/static/Enemy-right.png");
     this.load.image("gold", "/static/gold.png");
     this.load.image("shop", "/static/shop.png");
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
@@ -32,7 +33,9 @@ export default class PlayScene extends Phaser.Scene {
       bots: [],
       gold: [],
       shopGUIOpen: false,
-      goldCollected: 100
+      goldCollected: 100,
+      botSpeed: 1,
+      lifeTimeGold: 100,
     };
   }
 
@@ -49,7 +52,7 @@ export default class PlayScene extends Phaser.Scene {
   buySpeed() {
     if(window.state.goldCollected >= 1000) {
       window.state.goldCollected -= 1000;
-      window.state.botSpeed += 10;
+      window.state.botSpeed += 0.2;
     }
   }
 

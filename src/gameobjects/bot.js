@@ -1,19 +1,25 @@
 export class Bot extends Phaser.GameObjects.Image {
     constructor(scene, x, y) {
-    console.log(scene);
       super(scene, x, y, "bot-right");
       this.setDepth(2);
       this.targetX = 10000
       this.targetY = 10000
       this.busy = false;
       this.speed = 1;
+      this.workingOn = undefined;
     }
 
     update() {
-      this.speed = window.state.botspeed
+      this.speed = window.state.botSpeed
       if(this.busy) return;
+      let found = window.state.gold.find(x => x.x == this.targetX && x.y == this.targetY);
+      if(!found) {
+          this.targetX = 10000;
+          this.targetY = 10000;
+      }
       //check nearest Gold Locations
       let currEucl = Math.sqrt((this.x-this.targetX)*(this.x-this.targetX)+(this.y-this.targetY)*(this.y-this.targetY))
+      
       for (var i = 0; i < window.state.gold.length; i++)
       {
         var tempx = window.state.gold[i].x
@@ -64,29 +70,29 @@ export class Bot extends Phaser.GameObjects.Image {
       }
       //*/
 
-      if(currEucl == 1)
+      if(currEucl < 32)
       {
         this.busy = true;
-        console.log(this.busy)
-        setTimeout(() => {
-          var minPos = 0;
-          var minEucl = Math.sqrt((this.x-window.state.gold[0].x)*(this.x-window.state.gold[0].x) + (this.y-window.state.gold[0].y)*(this.y-window.state.gold[0].y))
+        var minPos = 0;
+        var minEucl = Math.sqrt((this.x-window.state.gold[0].x)*(this.x-window.state.gold[0].x) + (this.y-window.state.gold[0].y)*(this.y-window.state.gold[0].y))
 
-          for (var i = 1; i < window.state.gold.length; i++)
+        for (var i = 1; i < window.state.gold.length; i++)
+        {
+          var tempx = window.state.gold[i].x
+          var tempy = window.state.gold[i].y
+          var tempEucl = Math.sqrt((this.x-tempx)*(this.x-tempx) + (this.y-tempy)*(this.y-tempy))
+          if(tempEucl < minEucl)
           {
-            var tempx = window.state.gold[i].x
-            var tempy = window.state.gold[i].y
-            var tempEucl = Math.sqrt((this.x-tempx)*(this.x-tempx) + (this.y-tempy)*(this.y-tempy))
-            if(tempEucl < minEucl)
-            {
-              minPos = i;
-              minEucl = tempEucl
-            }
+            minPos = i;
+            minEucl = tempEucl
           }
-          
-          window.state.gold[minPos].destroy();
-          console.log(window.state.gold[minPos])
-          window.state.gold = window.state.gold.filter(x => x.active);
+        }
+        this.workingOn = window.state.gold[minPos];
+        window.state.gold = window.state.gold.filter(x => x != this.workingOn);
+        setTimeout(() => {
+          this.workingOn.destroy();
+          window.state.goldCollected += 50;
+          window.state.lifeTimeGold += 50;
           this.busy = false
           this.targetX = 10000
           this.targetY = 10000
