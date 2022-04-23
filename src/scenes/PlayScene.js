@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import { Bot } from "../gameobjects/bot";
+import { Gold } from "../gameobjects/gold";
 
 export default class PlayScene extends Phaser.Scene {
   constructor() {
@@ -11,8 +12,12 @@ export default class PlayScene extends Phaser.Scene {
     this.load.image("map", "/static/sci-fi-tiles.png");
     this.load.image("bot-right", "/static/robot-right.png");
     this.load.image("bot-left", "/static/robot-left.png");
+    this.load.image("gold", "/static/gold.png");
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
-    this.bots = [];
+    window.state = {
+      bots: [],
+      gold: []
+    }
   }
 
   create() {
@@ -27,12 +32,40 @@ export default class PlayScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.setBounds(0, 0, 64 * 32, 64 * 32);
     const newBot = new Bot(this, 0, 200);
-    this.bots.push(newBot);
+    window.state.bots.push(newBot);
     this.add.existing(newBot);
+
+    function addGold() {
+      if (Math.floor(Math.random() * 25) == 1) {
+        let mapSize = 64 * 32;
+        let newX = Math.floor(Math.random() * mapSize);
+        let newY = Math.floor(Math.random() * mapSize);
+        let newGold = new Gold(this, newX, newY);
+        window.state.gold.push(newGold);
+        this.add.existing(newGold);
+        console.log(`New gold located at x${newX}, y${newY}`);
+      }
+    }
+
+    for (let i = 0; i < 25; i++) {
+      let mapSize = 64 * 32;
+      let newX = Math.floor(Math.random() * mapSize);
+      let newY = Math.floor(Math.random() * mapSize);
+      let newGold = new Gold(this, newX, newY);
+      window.state.gold.push(newGold);
+      this.add.existing(newGold);
+    }
+
+    this.time.addEvent({
+      callback: addGold,
+      callbackScope: this,
+      delay: 100,
+      loop: true,
+    });
   }
 
   update() {
-    this.bots.forEach(x => x.update())
+    window.state.bots.forEach((x) => x.update());
     let camera = this.cameras.main;
     if (this.cursors.left.isDown) {
       camera.scrollX -= this.CAMERA_SPEED;
