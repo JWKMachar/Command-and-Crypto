@@ -1,4 +1,5 @@
 import * as Phaser from "phaser";
+import { Bot } from "../gameobjects/bot";
 
 export default class PlayScene extends Phaser.Scene {
   constructor() {
@@ -8,9 +9,10 @@ export default class PlayScene extends Phaser.Scene {
 
   preload() {
     this.load.image("map", "/static/sci-fi-tiles.png");
-    this.load.image('bot-right', '/static/robot-right.png');
-    this.load.image('bot-left', '/static/robot-left.png');
+    this.load.image("bot-right", "/static/robot-right.png");
+    this.load.image("bot-left", "/static/robot-left.png");
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
+    this.bots = [];
   }
 
   create() {
@@ -23,10 +25,14 @@ export default class PlayScene extends Phaser.Scene {
 
     const layer = map.createLayer(0, "tilemap");
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.cameras.main.setBounds(0, 0, 64 * 32, 64 * 32)
+    this.cameras.main.setBounds(0, 0, 64 * 32, 64 * 32);
+    const newBot = new Bot(this, 0, 200);
+    this.bots.push(newBot);
+    this.add.existing(newBot);
   }
 
   update() {
+    this.bots.forEach(x => x.update())
     let camera = this.cameras.main;
     if (this.cursors.left.isDown) {
       camera.scrollX -= this.CAMERA_SPEED;

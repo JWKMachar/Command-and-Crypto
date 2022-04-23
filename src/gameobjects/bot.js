@@ -1,14 +1,11 @@
-function bot() {
-    this.x = 0;
-    this.y = 0;
-    this.targetX = 0;
-    this.targetY = 0;
-
-
-
-    this.update = function() {
-
+export class Bot extends Phaser.GameObjects.Image {
+    constructor(scene, x, y) {
+      super(scene, x, y, "bot-right");
     }
 
-
-}
+    update() {
+        let isMovingLeft = flase;
+        this.setFlipX(isMovingLeft)
+        this.x += 1;
+    }
+  }
