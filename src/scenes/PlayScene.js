@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import { Bot } from "../gameobjects/bot";
+import { Enemy } from "../gameobjects/enemy";
 import { Gold } from "../gameobjects/gold";
 import { Shop } from "../gameobjects/shop";
 
@@ -18,8 +19,6 @@ export default class PlayScene extends Phaser.Scene {
 
     document.getElementById("farm-bot").onclick = this.buyBot;
     document.getElementById("bot-speed").onclick = this.buySpeed;
-
-
   }
 
   preload() {
@@ -32,6 +31,7 @@ export default class PlayScene extends Phaser.Scene {
     window.state = {
       bots: [],
       gold: [],
+      Enemy: [],
       shopGUIOpen: false,
       goldCollected: 100,
       botSpeed: 1,
@@ -102,6 +102,8 @@ export default class PlayScene extends Phaser.Scene {
     });
 
     this.input.on("pointerdown", this.handleMouseDown);
+
+    this.active = false;
   }
 
   handleMouseDown() {
@@ -124,6 +126,7 @@ export default class PlayScene extends Phaser.Scene {
       );
     }
     window.state.bots.forEach((x) => x.update());
+    window.state.Enemy.forEach((x) => x.update());
     let camera = this.cameras.main;
     if (this.cursors.left.isDown) {
       camera.scrollX -= this.CAMERA_SPEED;
@@ -136,5 +139,23 @@ export default class PlayScene extends Phaser.Scene {
     } else if (this.cursors.down.isDown) {
       camera.scrollY += this.CAMERA_SPEED;
     }
+
+    if(window.state.lifeTimeGold%400 == 0 && this.active ==false)
+    {
+      this.active = true;
+      for(var i = 0; i < window.state.lifeTimeGold/400; i++)
+      {
+        const newEnemy = new Enemy(window.scene, 100, 100);
+        window.state.Enemy.push(newEnemy);
+        window.scene.add.existing(newEnemy);
+      }
+    }
+    else
+    {
+      if ( window.state.lifeTimeGold%200 != 0){
+        this.active = false;
+      }
+    }
+
   }
 }
