@@ -57,6 +57,7 @@ export default class PlayScene extends Phaser.Scene {
     this.load.image("bot-right", "/static/robot-right.png");
     this.load.image("market", "/static/market.png");
     this.load.image("bot-evil", "/static/Enemy-right.png");
+    this.load.image("bot-defender", "/static/Defender-right.png");
     this.load.image("gold", "/static/gold.png");
     this.load.image("shop", "/static/shop.png");
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
