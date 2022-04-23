@@ -25,7 +25,6 @@ export default class PlayScene extends Phaser.Scene {
   preload() {
     this.load.image("map", "/static/sci-fi-tiles.png");
     this.load.image("bot-right", "/static/robot-right.png");
-    this.load.image("bot-left", "/static/robot-left.png");
     this.load.image("gold", "/static/gold.png");
     this.load.image("shop", "/static/shop.png");
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
@@ -65,7 +64,7 @@ export default class PlayScene extends Phaser.Scene {
     const layer = map.createLayer(0, "tilemap");
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.setBounds(0, 0, 64 * 32, 64 * 32);
-    const newBot = new Bot(this, 0, 200);
+    const newBot = new Bot(this, 200, 200);
     window.state.bots.push(newBot);
     this.add.existing(newBot);
 
@@ -80,7 +79,6 @@ export default class PlayScene extends Phaser.Scene {
         let newGold = new Gold(this, newX, newY);
         window.state.gold.push(newGold);
         this.add.existing(newGold);
-        // console.log(`New gold located at x${newX}, y${newY}`);
       }
     }
 
@@ -93,7 +91,7 @@ export default class PlayScene extends Phaser.Scene {
       this.add.existing(newGold);
     }
 
-    this.time.addEvent({
+      this.time.addEvent({
       callback: addGold,
       callbackScope: this,
       delay: 100,
