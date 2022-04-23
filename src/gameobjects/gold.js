@@ -5,4 +5,10 @@ export class Gold extends Phaser.GameObjects.Image {
       super(scene, x, y, "gold");
       this.setDepth(0);
     }
+  
+  Destroyer()
+  {
+      this.destroy()
+  }
+
   }
