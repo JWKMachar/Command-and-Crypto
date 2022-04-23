@@ -149,7 +149,7 @@ export default class PlayScene extends Phaser.Scene {
 
     function adjustBitcoin() {
       let adjustment = Math.floor(Math.random() * 100);
-      adjustment -= 50;
+      adjustment -= 40;
       window.state.bitcoinToGoldFactor += adjustment;
       window.buyBitcoin.innerText = window.state.bitcoinToGoldFactor;
       window.sellBitcoin.innerText = window.state.bitcoinToGoldFactor;
