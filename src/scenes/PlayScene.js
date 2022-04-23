@@ -32,7 +32,9 @@ export default class PlayScene extends Phaser.Scene {
       bots: [],
       gold: [],
       shopGUIOpen: false,
-      goldCollected: 100
+      goldCollected: 100,
+      botSpeed: 1,
+      lifeTimeGold: 100,
     };
   }
 
@@ -49,7 +51,7 @@ export default class PlayScene extends Phaser.Scene {
   buySpeed() {
     if(window.state.goldCollected >= 1000) {
       window.state.goldCollected -= 1000;
-      window.state.botSpeed += 10;
+      window.state.botSpeed += 0.2;
     }
   }
 
