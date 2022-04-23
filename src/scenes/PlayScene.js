@@ -33,6 +33,7 @@ export default class PlayScene extends Phaser.Scene {
     document.getElementById("bitcoin-market").onclick = this.buyMarket;
     document.getElementById("bitcoin-container").onclick = this.buyBitcoin;
     document.getElementById("sell-bitcoin-container").onclick = this.sellBitcoin;
+    document.getElementById("bot-defender").onclick = this.buyDefender;
   }
 
   buyBitcoin() {
@@ -40,6 +41,13 @@ export default class PlayScene extends Phaser.Scene {
       window.state.goldCollected -= window.state.bitcoinToGoldFactor;
       window.state.bitcoin += 1;
       window.state.marketGUIOpen = false;
+    }
+  }
+
+  buyDefender() {
+    if(window.state.goldCollected >= 2500) {
+      window.state.goldCollected -= 2500;
+      
     }
   }
 
@@ -142,7 +150,7 @@ export default class PlayScene extends Phaser.Scene {
 
     function adjustBitcoin() {
       let adjustment = Math.floor(Math.random() * 100);
-      adjustment -= 50;
+      adjustment -= 40;
       window.state.bitcoinToGoldFactor += adjustment;
       window.buyBitcoin.innerText = window.state.bitcoinToGoldFactor;
       window.sellBitcoin.innerText = window.state.bitcoinToGoldFactor;
