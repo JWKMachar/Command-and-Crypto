@@ -17,6 +17,9 @@ export default class PlayScene extends Phaser.Scene {
     window.scene = this;
 
     document.getElementById("farm-bot").onclick = this.buyBot;
+    document.getElementById("bot-speed").onclick = this.buySpeed;
+
+
   }
 
   preload() {
@@ -41,6 +44,13 @@ export default class PlayScene extends Phaser.Scene {
       window.state.bots.push(newBot);
       window.scene.add.existing(newBot);
       window.state.shopGUIOpen = false;
+    }
+  }
+
+  buySpeed() {
+    if(window.state.goldCollected >= 1000) {
+      window.state.goldCollected -= 1000;
+      window.state.botSpeed += 10;
     }
   }
 
