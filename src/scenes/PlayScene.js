@@ -8,6 +8,8 @@ export default class PlayScene extends Phaser.Scene {
 
   preload() {
     this.load.image("map", "/static/sci-fi-tiles.png");
+    this.load.image('bot-right', '/static/robot-right.png');
+    this.load.image('bot-left', '/static/robot-left.png');
     this.load.tilemapCSV("tilemap", "/static/tilemap.csv");
   }
 
