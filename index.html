@@ -28,6 +28,20 @@
         color: rgb(219, 210, 39);
       }
 
+      #bitcoin {
+        position: absolute;
+        left: 30px;
+        top: 60px;
+        color: rgb(219, 138, 39);
+      }
+
+      #b2g {
+        color: rgb(219, 210, 39);
+        position: absolute;
+        left: 30px;
+        top: 90px;
+      }
+
       #shop {
         background-image: url("/static/menu.png");
         width: 624px;
@@ -95,6 +109,8 @@
   <body style="margin: 0; height: 100%; overflow: hidden">
     <h1 id="info">Place shop!</h1>
     <h1 id="gold">Gold: </h1>
+    <h1 id="bitcoin">Bitcoin: </h1>
+    <h1 id="b2g">Gold per bitcoin: </h1>
     <div id="shop-container" class="grid" style="top: -120vh;">
       <div id="shop">
         <a href="#" id="shop-close" class="close"></a>
@@ -113,6 +129,36 @@
           <div style="display: flex; flex-direction: row; padding-top: 5px;">
             <img src="/static/gold.png" width="32" height="32" style="padding-top: 12px;">
             <h3>1000g</h3>
+          </div>
+        </div>
+        <div id="bitcoin-market" class="shop-item">
+          <img src="/static/hacker-pepe.gif" alt="Robot" width="58" height="58" style="padding-top: 5px;">
+          <h2>Bitcoin Market</h2>
+          <div style="display: flex; flex-direction: row; padding-top: 5px;">
+            <img src="/static/gold.png" width="32" height="32" style="padding-top: 12px;">
+            <h3>5000g</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="market-container" class="grid" style="top: -120vh;">
+      <div id="shop">
+        <a href="#" id="market-close" class="close"></a>
+        <div style="margin-top: 80px;""></div>
+        <div id="bitcoin-container" class="shop-item">
+          <img src="/static/gold-bitcoin-icon-0.png" alt="bitcoin" width="58" height="58" style="padding-top: 5px;">
+          <h2>Buy bitcoin</h2>
+          <div style="display: flex; flex-direction: row; padding-top: 5px;">
+            <img src="/static/gold.png" width="32" height="32" style="padding-top: 12px;">
+            <h3 id="buy-bitcoin">1000g</h3>
+          </div>
+        </div>
+        <div id="sell-bitcoin-container" class="shop-item">
+          <img src="/static/gold.png" alt="gold" width="58" height="58" style="padding-top: 5px;">
+          <h2 id="sell-bitcoin">Sell bitcoin 1000g</h2>
+          <div style="display: flex; flex-direction: row; padding-top: 5px;">
+            <img src="/static/gold-bitcoin-icon-0.png" width="32" height="32" style="padding-top: 12px;">
+            <h3>1b</h3>
           </div>
         </div>
       </div>
