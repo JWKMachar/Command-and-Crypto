@@ -7,13 +7,14 @@ export default class PlayScene extends Phaser.Scene {
   
     preload() {
       this.load.image('star', '/static/sci-fi-tiles.png');
+      this.load.image('bot-right', '/static/robot-right.png');
+      this.load.image('bot-left', '/static/robot-left.png');
     }
   
     create() {
-      this.add.image(
-        game.config.width / 2,
-        game.config.height / 2,
-        'star'
-      );
+      //var sprite = this.PlayScene.create.sprite(32,32, '/static/robot-right.png')
+      var bot = new Sprite(PlayScene, 50, 50, 'bot-right')
     }
+
   }
+
