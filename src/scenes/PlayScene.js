@@ -15,17 +15,17 @@ export default class PlayScene extends Phaser.Scene {
     this.shopGui = document.getElementById("shop-container");
     this.marketGUI = document.getElementById("market-container");
     this.bitcoin = document.getElementById("bitcoin");
-    this.b2g = document.getElementById("b2g")
+    this.b2g = document.getElementById("b2g");
     window.buyBitcoin = document.getElementById("buy-bitcoin");
-    window.sellBitcoin = document.getElementById("sell-bitcoin")
+    window.sellBitcoin = document.getElementById("sell-bitcoin");
 
     document.getElementById("shop-close").onclick = function () {
       window.state.shopGUIOpen = false;
-    }
+    };
 
     document.getElementById("market-close").onclick = function () {
       window.state.marketGUIOpen = false;
-    }
+    };
 
     window.scene = this;
 
@@ -33,12 +33,13 @@ export default class PlayScene extends Phaser.Scene {
     document.getElementById("bot-speed").onclick = this.buySpeed;
     document.getElementById("bitcoin-market").onclick = this.buyMarket;
     document.getElementById("bitcoin-container").onclick = this.buyBitcoin;
-    document.getElementById("sell-bitcoin-container").onclick = this.sellBitcoin;
+    document.getElementById("sell-bitcoin-container").onclick =
+      this.sellBitcoin;
     document.getElementById("bot-defender").onclick = this.buyDefender;
   }
 
   buyBitcoin() {
-    if(window.state.goldCollected > window.state.bitcoinToGoldFactor) {
+    if (window.state.goldCollected > window.state.bitcoinToGoldFactor) {
       window.state.goldCollected -= window.state.bitcoinToGoldFactor;
       window.state.bitcoin += 1;
       window.state.marketGUIOpen = false;
@@ -46,9 +47,13 @@ export default class PlayScene extends Phaser.Scene {
   }
 
   buyDefender() {
-    if(window.state.goldCollected >= 2500) {
-      window.state.goldCollected -= 2500;
-      const newBot = new Defender(window.scene, window.state.shop.x, window.state.shop.y);
+    if (window.state.goldCollected >= 500) {
+      window.state.goldCollected -= 500;
+      const newBot = new Defender(
+        window.scene,
+        window.state.shop.x,
+        window.state.shop.y
+      );
       window.state.bots.push(newBot);
       window.scene.add.existing(newBot);
       window.state.shopGUIOpen = false;
@@ -56,7 +61,7 @@ export default class PlayScene extends Phaser.Scene {
   }
 
   sellBitcoin() {
-    if(window.state.bitcoin > 0) {
+    if (window.state.bitcoin > 0) {
       window.state.bitcoin -= 1;
       window.state.goldCollected += window.state.bitcoinToGoldFactor;
       window.state.lifeTimeGold += window.state.bitcoinToGoldFactor;
@@ -78,17 +83,17 @@ export default class PlayScene extends Phaser.Scene {
       gold: [],
       Enemy: [],
       shopGUIOpen: false,
-      goldCollected: 20000,
+      goldCollected: 500,
       botSpeed: 1,
-      lifeTimeGold: 100,
+      lifeTimeGold: 0,
       marketGUIOpen: false,
       bitcoinToGoldFactor: 1000,
-      bitcoin: 0
+      bitcoin: 0,
     };
   }
 
   buyMarket() {
-    if(window.state.goldCollected >= 5000) {
+    if (window.state.goldCollected >= 5000) {
       window.state.goldCollected -= 5000;
       const market = new BitcoinMarket(window.scene, 0, 0);
       window.state.market = market;
@@ -98,9 +103,13 @@ export default class PlayScene extends Phaser.Scene {
   }
 
   buyBot() {
-    if(window.state.goldCollected >= 100) {
+    if (window.state.goldCollected >= 100) {
       window.state.goldCollected -= 100;
-      const newBot = new Bot(window.scene, window.state.shop.x, window.state.shop.y);
+      const newBot = new Bot(
+        window.scene,
+        window.state.shop.x,
+        window.state.shop.y
+      );
       window.state.bots.push(newBot);
       window.scene.add.existing(newBot);
       window.state.shopGUIOpen = false;
@@ -108,7 +117,7 @@ export default class PlayScene extends Phaser.Scene {
   }
 
   buySpeed() {
-    if(window.state.goldCollected >= 1000) {
+    if (window.state.goldCollected >= 1000) {
       window.state.goldCollected -= 1000;
       window.state.botSpeed += 0.2;
     }
@@ -124,7 +133,7 @@ export default class PlayScene extends Phaser.Scene {
 
     const layer = map.createLayer(0, "tilemap");
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.cameras.main.setBounds(0, 0, 64 * 32, 64 * 32);
+    this.cameras.main.setBounds(0, 0, 128 * 32, 128 * 32);
     const newBot = new Bot(this, 200, 200);
     window.state.bots.push(newBot);
     this.add.existing(newBot);
@@ -153,6 +162,11 @@ export default class PlayScene extends Phaser.Scene {
     }
 
     function adjustBitcoin() {
+      if (Math.floor(Math.random() * 100) === 1) {
+        window.state.bitcoinToGoldFactor = Math.floor(
+          window.state.bitcoinToGoldFactor / 2
+        );
+      }
       let adjustment = Math.floor(Math.random() * 100);
       adjustment -= 40;
       window.state.bitcoinToGoldFactor += adjustment;
@@ -160,7 +174,7 @@ export default class PlayScene extends Phaser.Scene {
       window.sellBitcoin.innerText = window.state.bitcoinToGoldFactor;
     }
 
-      this.time.addEvent({
+    this.time.addEvent({
       callback: addGold,
       callbackScope: this,
       delay: 100,
@@ -171,7 +185,7 @@ export default class PlayScene extends Phaser.Scene {
       callback: adjustBitcoin,
       callbackScope: this,
       delay: 2000,
-      loop: true
+      loop: true,
     });
 
     this.input.on("pointerdown", this.handleMouseDown);
@@ -183,7 +197,7 @@ export default class PlayScene extends Phaser.Scene {
     if (!window.state.shop.placed) {
       window.state.shop.place();
     }
-    if(window.state.market != undefined && !window.state.market.placed) {
+    if (window.state.market != undefined && !window.state.market.placed) {
       window.state.market.place();
     }
   }
@@ -191,7 +205,8 @@ export default class PlayScene extends Phaser.Scene {
   update() {
     this.goldGUI.innerText = "Gold: " + window.state.goldCollected;
     this.bitcoin.innerText = "Bitcoin: " + window.state.bitcoin;
-    this.b2g.innerText = "Gold per bitcoin: " + window.state.bitcoinToGoldFactor;
+    this.b2g.innerText =
+      "Gold per bitcoin: " + window.state.bitcoinToGoldFactor;
     if (window.state.shopGUIOpen) {
       this.shopGui.style = "top: 0;";
     } else {
@@ -210,7 +225,7 @@ export default class PlayScene extends Phaser.Scene {
       );
     }
 
-    if(window.state.market != undefined && !window.state.market.placed) {
+    if (window.state.market != undefined && !window.state.market.placed) {
       window.state.market.update(
         this.input.mousePointer.worldX,
         this.input.mousePointer.worldY
@@ -231,22 +246,17 @@ export default class PlayScene extends Phaser.Scene {
       camera.scrollY += this.CAMERA_SPEED;
     }
 
-    if(window.state.lifeTimeGold%400 == 0 && this.active ==false)
-    {
+    if (window.state.lifeTimeGold % 600 == 0 && this.active == false) {
       this.active = true;
-      for(var i = 0; i < window.state.lifeTimeGold/400; i++)
-      {
+      for (var i = 0; i < window.state.lifeTimeGold / 400; i++) {
         const newEnemy = new Enemy(window.scene, 100, 100);
         window.state.Enemy.push(newEnemy);
         window.scene.add.existing(newEnemy);
       }
-    }
-    else
-    {
-      if ( window.state.lifeTimeGold%200 != 0){
+    } else {
+      if (window.state.lifeTimeGold % 200 != 0) {
         this.active = false;
       }
     }
-
   }
 }

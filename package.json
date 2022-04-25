@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack serve --config ./webpack.config.dev.js"
+    "start": "npx webpack serve --config ./webpack.config.dev.js",
+    "build": "npx webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",

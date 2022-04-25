@@ -5,7 +5,7 @@ function getRandomElement() {
   return a[Math.floor(Math.random() * a.length)].toString();
 }
 
-const size = 64;
+const size = 128;
 
 var data = "";
 data += "2,";
